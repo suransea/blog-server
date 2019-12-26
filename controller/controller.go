@@ -4,10 +4,17 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Setup(engine *gin.Engine) {
-	user := engine.Group("/users")
-	user.GET("/:name", GetUser)
+type Rsp struct {
+	Code int         `json:"code"`
+	Msg  string      `json:"msg"`
+	Data interface{} `json:"data"`
+}
 
-	article := engine.Group("/articles")
-	article.GET("/:id", GetArticle)
+func Init(engine *gin.Engine) {
+	tag := engine.Group("/tags")
+	tag.GET("", GetTags)
+	tag.GET("/:id", GetTag)
+	tag.POST("", PostTag)
+	tag.PUT("/:id", PutTag)
+	tag.DELETE("/:id", DeleteTag)
 }
