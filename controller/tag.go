@@ -7,7 +7,7 @@ import (
 )
 
 func GetTags(ctx *gin.Context) {
-	tags, err := model.SelectTags()
+	tags, err := model.GetTags()
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, rspErrInternal(err))
 		return
@@ -21,7 +21,7 @@ func GetTag(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, rspErrBadRequest(err))
 		return
 	}
-	tag, err := model.SelectTagById(id)
+	tag, err := model.GetTag(id)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, rspErrInternal(err))
 		return
@@ -41,7 +41,7 @@ func PutTag(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, rspErrBadRequest(err))
 		return
 	}
-	err = model.UpdateTagById(id, tag)
+	err = model.UpdateTag(id, tag)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, rspErrInternal(err))
 		return
@@ -56,7 +56,7 @@ func PostTag(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, rspErrBadRequest(err))
 		return
 	}
-	tag.Id, err = model.InsertTag(tag.Tag)
+	tag.Id, err = model.AddTag(tag.Tag)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, rspErrInternal(err))
 		return
@@ -70,7 +70,7 @@ func DeleteTag(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, rspErrBadRequest(err))
 		return
 	}
-	err = model.DeleteTagById(id)
+	err = model.RemoveTag(id)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, rspErrInternal(err))
 		return
