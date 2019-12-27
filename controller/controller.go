@@ -24,10 +24,12 @@ func Init(engine *gin.Engine) {
 	article.GET("", GetArticles)
 	article.GET("/:id", GetArticle)
 	article.GET("/:id/content", GetArticleContent)
+	article.GET("/:id/tags", GetArticleTags)
 
 	tag := engine.Group("/tags")
 	tag.GET("", GetTags)
 	tag.GET("/:id", GetTag)
+	tag.GET("/:id/articles", GetTagArticles)
 	tag.POST("", PostTag)
 	tag.PUT("/:id", PutTag)
 	tag.DELETE("/:id", DeleteTag)

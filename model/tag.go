@@ -18,6 +18,12 @@ func GetTag(id int64) (tag Tag, err error) {
 	return
 }
 
+func GetTagArticles(id int64) (articles []Article, err error) {
+	err = db.Select(&articles, "SELECT t1.id, t1.title, t1.summary, t1.content_id, t1.ctime, t1.utime FROM "+
+		"article AS t1 INNER JOIN article_tag AS t2 ON t1.id = t2.article_id WHERE t2.tag_id=?", id)
+	return
+}
+
 func AddTag(tag string) (id int64, err error) {
 	rst, err := db.Exec("INSERT INTO tag(tag, ctime, utime) VALUES (?, ?, ?)",
 		tag, time.Now().Unix(), time.Now().Unix())

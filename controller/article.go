@@ -50,3 +50,21 @@ func GetArticleContent(ctx *gin.Context) {
 	}
 	ctx.JSON(http.StatusOK, rspSuccess(content))
 }
+
+func GetArticleTags(ctx *gin.Context) {
+	id, err := paramInt64(ctx, "id")
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, rspError(ErrBadRequest, err))
+		return
+	}
+	tags, err := model.GetArticleTags(id)
+	if err == model.ErrNoResults {
+		ctx.JSON(http.StatusNotFound, rspError(ErrNotFound, err))
+		return
+	}
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, rspError(ErrInternal, err))
+		return
+	}
+	ctx.JSON(http.StatusOK, rspSuccess(tags))
+}

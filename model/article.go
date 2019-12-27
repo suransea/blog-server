@@ -29,3 +29,9 @@ func GetArticleContent(id int64) (content Content, err error) {
 	}
 	return
 }
+
+func GetArticleTags(id int64) (tags []Tag, err error) {
+	err = db.Select(&tags, "SELECT t1.id, t1.tag, t1.ctime, t1.utime FROM "+
+		"tag AS t1 INNER JOIN article_tag AS t2 ON t1.id = t2.tag_id WHERE t2.article_id=?", id)
+	return
+}

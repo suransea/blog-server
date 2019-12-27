@@ -33,6 +33,24 @@ func GetTag(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, rspSuccess(tag))
 }
 
+func GetTagArticles(ctx *gin.Context) {
+	id, err := paramInt64(ctx, "id")
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, rspError(ErrBadRequest, err))
+		return
+	}
+	articles, err := model.GetTagArticles(id)
+	if err == model.ErrNoResults {
+		ctx.JSON(http.StatusNotFound, rspError(ErrNotFound, err))
+		return
+	}
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, rspError(ErrInternal, err))
+		return
+	}
+	ctx.JSON(http.StatusOK, rspSuccess(articles))
+}
+
 func PutTag(ctx *gin.Context) {
 	id, err := paramInt64(ctx, "id")
 	if err != nil {
