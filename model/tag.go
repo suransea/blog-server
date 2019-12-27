@@ -1,6 +1,7 @@
 package model
 
 import (
+	"database/sql"
 	"time"
 )
 
@@ -11,6 +12,9 @@ func GetTags() (tags []Tag, err error) {
 
 func GetTag(id int64) (tag Tag, err error) {
 	err = db.Get(&tag, "SELECT id, tag, ctime, utime FROM tag WHERE id=?", id)
+	if err == sql.ErrNoRows {
+		err = ErrNoResults
+	}
 	return
 }
 

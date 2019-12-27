@@ -18,17 +18,9 @@ func rspSuccess(data interface{}) Rsp {
 	}
 }
 
-func rspErrInternal(err error) Rsp {
+func rspError(code int, err error) Rsp {
 	return Rsp{
-		Code: 1,
-		Msg:  err.Error(),
-		Data: nil,
-	}
-}
-
-func rspErrBadRequest(err error) Rsp {
-	return Rsp{
-		Code: 2,
+		Code: code,
 		Msg:  err.Error(),
 		Data: nil,
 	}

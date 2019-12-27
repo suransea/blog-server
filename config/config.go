@@ -20,6 +20,7 @@ type Database struct {
 	Loc      string `yaml:"loc"`
 }
 
+// Read the config file, and returns the server and database config.
 func Read(filename string) (server Server, db Database) {
 	bytes, err := ioutil.ReadFile(filename)
 	if err != nil {
