@@ -4,6 +4,7 @@ import (
 	"blog-server/config"
 	"errors"
 	"fmt"
+
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
 )
@@ -24,27 +25,4 @@ func Init(cfg config.Database) {
 	if err != nil {
 		panic("Error occurred in opening database.")
 	}
-}
-
-type Article struct {
-	Id        int64  `json:"id" db:"id"`
-	Title     string `json:"title" db:"title"`
-	Summary   string `json:"summary" db:"summary"`
-	ContentId int64  `json:"content_id" db:"content_id"`
-	Ctime     int64  `json:"ctime" db:"ctime"`
-	Utime     int64  `json:"utime" db:"utime"`
-}
-
-type Content struct {
-	Id      int64  `json:"id" db:"id"`
-	Content string `json:"content" db:"content"`
-	Ctime   int64  `json:"ctime" db:"ctime"`
-	Utime   int64  `json:"utime" db:"utime"`
-}
-
-type Tag struct {
-	Id    int64  `json:"id" db:"id"`
-	Tag   string `json:"tag" db:"tag"`
-	Ctime int64  `json:"ctime" db:"ctime"`
-	Utime int64  `json:"utime" db:"utime"`
 }

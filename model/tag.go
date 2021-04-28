@@ -5,6 +5,13 @@ import (
 	"time"
 )
 
+type Tag struct {
+	Id    int64  `json:"id" db:"id"`
+	Tag   string `json:"tag" db:"tag"`
+	Ctime int64  `json:"ctime" db:"ctime"`
+	Utime int64  `json:"utime" db:"utime"`
+}
+
 func GetTags() (tags []Tag, err error) {
 	err = db.Select(&tags, "SELECT id, tag, ctime, utime FROM tag")
 	return

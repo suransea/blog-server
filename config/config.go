@@ -1,21 +1,23 @@
 package config
 
 import (
-	"gopkg.in/yaml.v2"
 	"io/ioutil"
+
+	"gopkg.in/yaml.v2"
 )
 
 type Server struct {
 	Mode string `yaml:"mode"`
 	Port uint16 `yaml:"port"`
 }
+
 type Database struct {
 	Username string `yaml:"username"`
 	Password string `yaml:"password"`
 	Protocol string `yaml:"protocol"`
 	Host     string `yaml:"host"`
 	Port     uint16 `yaml:"port"`
-	Dbname   string `yame:"dbname"`
+	Dbname   string `yaml:"dbname"`
 	Charset  string `yaml:"charset"`
 	Loc      string `yaml:"loc"`
 }

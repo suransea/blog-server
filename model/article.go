@@ -2,13 +2,28 @@ package model
 
 import "database/sql"
 
+type Article struct {
+	Id      int64  `json:"id" db:"id"`
+	Title   string `json:"title" db:"title"`
+	Summary string `json:"summary" db:"summary"`
+	Ctime   int64  `json:"ctime" db:"ctime"`
+	Utime   int64  `json:"utime" db:"utime"`
+}
+
+type Content struct {
+	Id      int64  `json:"id" db:"id"`
+	Content string `json:"content" db:"content"`
+	Ctime   int64  `json:"ctime" db:"ctime"`
+	Utime   int64  `json:"utime" db:"utime"`
+}
+
 func GetArticles() (articles []Article, err error) {
-	err = db.Select(&articles, "SELECT id, title, summary, content_id, ctime, utime FROM article")
+	err = db.Select(&articles, "SELECT id, title, summary, ctime, utime FROM article")
 	return
 }
 
 func GetArticle(id int64) (article Article, err error) {
-	err = db.Get(&article, "SELECT id, title, summary, content_id, ctime, utime FROM article WHERE id=?", id)
+	err = db.Get(&article, "SELECT id, title, summary, ctime, utime FROM article WHERE id=?", id)
 	if err == sql.ErrNoRows {
 		err = ErrNoResults
 	}
